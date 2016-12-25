@@ -1,17 +1,14 @@
 (set-env!
-  :dependencies   '[[org.clojure/clojure       "1.7.0"     :scope "provided"]
-                   [org.clojure/clojurescript "1.7.228"   :scope "provided"]
+  :dependencies   '[[org.clojure/clojure      "1.8.0"]
+                   [org.clojure/clojurescript "1.9.293"]
                    [adzerk/boot-cljs          "1.7.228-2" :scope "test"]
-                   [adzerk/bootlaces          "0.1.13"    :scope "test"]
-                   [boot/core                 "2.6.0"]
-                   [cheshire                  "5.6.3"]
-                   [cljsjs/socket-io "1.6.0-0"]
+                   [adzerk/bootlaces          "0.1.13" :scope "test"]
+                   [cljsjs/socket-io          "1.6.0-0"]
                    [degree9/featherscript     "0.2.0-SNAPSHOT"]
-                   [degree9/boot-semver       "1.3.6"     :scope "test"]
+                   [degree9/boot-semver       "1.3.6" :scope "test"]
                    [degree9/boot-nodejs       "0.1.0-SNAPSHOT" :scope "test"]
-                   [degree9/boot-exec         "0.5.0-SNAPSHOT"]
-                   [hoplon/hoplon "6.0.0-alpha17"]
-                   [hoplon/brew "0.2.0-SNAPSHOT"]]
+                   [hoplon/hoplon             "6.0.0-alpha17"]
+                   [hoplon/brew               "0.2.0-SNAPSHOT"]]
   :asset-paths #{"assets"}
   :source-paths #{"src"}
   :resource-paths #{"resources"})
@@ -22,8 +19,7 @@
  '[degree9.boot-semver    :refer :all]
  '[degree9.boot-nodejs    :refer :all]
  '[feathers.boot-feathers :refer :all]
- '[hoplon.boot-hoplon     :refer :all]
- )
+ '[hoplon.boot-hoplon     :refer :all])
 
 (task-options!
   cljs     {:source-map       true

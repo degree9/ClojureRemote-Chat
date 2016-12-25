@@ -20,12 +20,12 @@
     feathers/hooks
     feathers/rest
     feathers/socketio
-    users/users
     feathers/authentication
+    users/users
     messages/messages)
 
-(defn -main []
+(defn- main []
   (feathers/listen app "8080"))
 
 (defn init []
-  (set! *main-cli-fn* -main))
+  (set! *main-cli-fn* main))
