@@ -1,0 +1,25 @@
+(page "index.html"
+  (:require [hoplon.bidi]
+            [app.client  :as client]
+            [app.chat    :as chat]
+            [app.views   :as view]
+            [app.routing :as routing])
+  (:require-macros [hoplon.bidi :refer [route-tpl]]))
+
+(html
+  (head
+    (html-meta :http-equiv "content-type" :content "text/html; charset=utf-8")
+    (html-meta :name "viewport" :content "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0")
+    (title "ClojureRemote Chat")
+    (link :rel "shortcut icon" :href "favicon.png")
+    (link :rel "stylesheet" :href "base.css")
+    (link :rel "stylesheet" :href "chat.css"))
+  (body
+    (route-tpl routing/routes
+      :chat    (chat/view)
+      :landing (view/landing)
+      :login   (view/login)
+      :signup  (view/signup)
+      :missing "404!")))
+
+(client/auth!)

@@ -1,0 +1,71 @@
+(ns app.views
+  (:refer-hoplon :exclude [header])
+  (:require [app.client :as client]
+            [app.routing :as routing]))
+
+(defelem header [attr kids]
+  (div :class [:col-12 :col-8-tablet :push-2-tablet :text-center]
+    (img :class [:logo :center-item]
+         :src "clojureremote_logo.png"
+         :alt "ClojureRemote Logo")
+    kids))
+
+(defelem view [attr kids]
+  (main :class [:container :home :login]
+    (div :class [:row] (header (:header attr)))
+    (div :class [:row] kids)))
+
+(defelem landing [attr kids]
+  (view :header (h3 :class [:title] "Chat")
+    (div :class [:col-12 :push-4-tablet :col-4-tablet]
+      (div :class [:row]
+        (div :class [:col-12]
+          (a :href "#login" :class [:button :button-primary :block :login] "Login")))
+      (div :class [:row]
+        (div :class [:col-12]
+          (a :href "#signup" :class [:button :button-primary :block :signup] "Signup"))))))
+
+(defc password nil)
+
+(defc email nil)
+
+(cell= (prn password email))
+
+(defelem user-form [attr kids]
+  (view :header (h3 :class [:title] (:header attr))
+    (div :class [:col-12 :col-6-tablet :push-3-tablet :col-4-desktop :push-4-desktop]
+      (form :class [:form]
+        (fieldset
+          (input :class [:block] :type "email" :name "email" :placeholder "email"
+            :change #(reset! email @%)
+            :value email))
+        (fieldset
+          (input :class [:block] :type "password" :name "password" :placeholder "password"
+            :change #(reset! password @%)
+            :value password))
+        (button :click (:click attr) :class [:button :button-primary :block :login] kids)))))
+
+(defelem login [attr kids]
+  (user-form
+    :header "Sign In"
+    :click #(-> {:email @email :password @password}
+                client/login!
+                (.then (fn [res] (.log js/console res)))
+                (.catch
+                  (fn [err]
+                    (.warn js/console (.-message err))
+                    (reset! email nil)
+                    (reset! password nil))))
+    "Login"))
+
+(defelem signup [attr kids]
+  (user-form
+    :header "Create an Account"
+    :click #(-> {:email @email :password @password}
+                client/login!
+                (.catch
+                  (fn [err]
+                    (.warn js/console (.-message err))
+                    (reset! email nil)
+                    (reset! password nil))))
+    "Signup"))

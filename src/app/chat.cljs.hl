@@ -1,0 +1,4 @@
+(ns app.chat)
+
+(defelem view [attr kids]
+  )

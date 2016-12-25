@@ -1,0 +1,15 @@
+(ns app.routing
+  (:require [hoplon.bidi :as bidi]))
+
+(def routes ["" {#{"" "/"} :landing
+                 "chat"    :chat
+                 "login"   :login
+                 "signup"  :signup
+                 true      :missing}])
+
+(def current (bidi/route routes))
+
+(defn route? [route]
+  (bidi/route? routes route))
+
+(cell= (prn current))
