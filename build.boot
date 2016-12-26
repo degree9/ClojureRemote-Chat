@@ -27,6 +27,7 @@
             :compiler-options {:pseudo-names   true
                                :pretty-print   true
                                :language-in    :ecmascript5
+                               :language-out   :ecmascript6
                                :parallel-build true}}
   hoplon   {:pretty-print     true}
   target   {:dir              #{"target"}})
@@ -43,3 +44,13 @@
     (target)
     (serve)
     (speak)))
+
+(deftask heroku
+  "Build ClojureRemote-Chat for Heroku."
+  []
+  (comp
+    (feathers)
+    (hoplon)
+    (nodejs :init-fn 'app.server/init)
+    (cljs)
+    (target)))
