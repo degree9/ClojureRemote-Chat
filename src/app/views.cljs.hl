@@ -29,8 +29,6 @@
 
 (defc email nil)
 
-(cell= (prn password email))
-
 (defelem user-form [attr kids]
   (view :header (h3 :class [:title] (:header attr))
     (div :class [:col-12 :col-6-tablet :push-3-tablet :col-4-desktop :push-4-desktop]
@@ -48,24 +46,17 @@
 (defelem login [attr kids]
   (user-form
     :header "Sign In"
-    :click #(-> {:email @email :password @password}
-                client/login!
-                (.then (fn [res] (.log js/console res)))
-                (.catch
-                  (fn [err]
-                    (.warn js/console (.-message err))
-                    (reset! email nil)
-                    (reset! password nil))))
+    :click (fn []
+            (-> (client/login! @email @password)
+                (.then #(routing/route! :chat))
+                (.catch #(.warn js/console %))))
     "Login"))
 
 (defelem signup [attr kids]
   (user-form
     :header "Create an Account"
-    :click #(-> {:email @email :password @password}
-                client/login!
-                (.catch
-                  (fn [err]
-                    (.warn js/console (.-message err))
-                    (reset! email nil)
-                    (reset! password nil))))
+    :click (fn []
+            (-> (client/signup! @email @password)
+                (.then #(routing/route! :login))
+                (.catch #(.warn js/console %))))
     "Signup"))

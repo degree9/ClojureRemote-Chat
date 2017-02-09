@@ -1,4 +1,75 @@
-(ns app.chat)
+(ns app.chat
+  (:require [app.client :as client]
+            [app.actions :as actions]
+            [feathers.client.services :as svc]))
 
-(defelem view [attr kids]
-  )
+(defc users [])
+
+(defc messages [])
+
+(cell= (prn users messages))
+
+(defc= user-count (count users))
+
+(defelem chat-header [attr kids]
+  (header :class [:title-bar :flex :flex-row :flex-center]
+    (div :class [:title-wrapper :block :center-element]
+      (img :class [:logo]
+        :src "clojureremote_logo.png"
+        :alt "ClojureRemote Logo")
+      (span :class [:title] kids))))
+
+(defelem chat-sidebar [attr kids]
+  (aside :class [:sidebar :col :col-3 :flex :flex-column :flex-space-between]
+    (header :class [:flex :flex-row :flex-center]
+      (h4 :class [:font-300 :text-center]
+        (span :class [:font-600 :online-count] (text "~{user-count}"))
+        "Users"))
+    (ul :class [:flex :flex-column :flex-1 :list-unstyled :user-list]
+      (loop-tpl :bindings [user users]
+        (li
+          (a :class [:block :relative]
+            (img :src (cell= (:avatar user)) :class [:avatar])
+            (span :class [:absolute :username] (text "~{(:email user)}"))))))
+    (footer :class [:flex :flex-row :flex-center]
+      (a :href "#" :class [:logout :button :button-primary] "Sign-Out"
+        :click #(client/logout!)))))
+
+(defelem chat-messages [attr kids]
+  (let []
+    (main :class [:chat :flex :flex-column :flex-1 :clear]
+      (loop-tpl :bindings [msg messages]
+        (div :class [:message :flex :flex-row]
+          (img :src (cell= nil) :class [:avatar])
+          (div :class [:message-wrapper]
+            (p :class [:message-header]
+              (span :class [:username :font-600])
+              (span :class [:sent-date :font-300]))
+            (p :class [:message-content :font-300] (text "~{(:text msg)}"))))))))
+
+(defelem chat-form [attr kids]
+  (let [msg (cell nil)]
+    (form :class [:flex :flex-row :flex-space-between]
+      :submit #(.then (actions/mk-message @msg)
+                (reset! msg nil))
+      (input
+        :type "text"
+        :class [:flex :flex-1]
+        :value msg
+        :change #(reset! msg @%))
+      (button
+        :type "submit"
+        :class [:button-primary]
+        "Send"))))
+
+(defelem chat-body [attr kids]
+  (div :class [:flex :flex-row :flex-1 :clear]
+    (chat-sidebar)
+    (div :class [:flex :flex-column :col :col-9]
+      (chat-messages)
+      (chat-form))))
+
+(defelem chat [attr kids]
+  (div :id "app" :class [:flex :flex-column]
+    (chat-header)
+    (chat-body)))

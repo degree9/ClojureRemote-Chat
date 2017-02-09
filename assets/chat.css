@@ -4,7 +4,7 @@ html, body {
 }
 
 .flex-1 {
-  flex: 1 1 0;
+  flex: 1;
 }
 
 .flex-2 {
@@ -18,13 +18,13 @@ html, body {
 
 a {
   text-decoration: none;
-  color: #31D8A0;
+  color: #0893D8;
 }
 
 a:hover,
 a:focus {
   text-decoration: none;
-  color: #27C895;
+  color: #0893D8;
 }
 
 .button {
@@ -33,7 +33,7 @@ a:focus {
 
 .button-primary {
   padding: 0.6em 1.2em;
-  background: #31D8A0;
+  background: #0893D8;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -42,7 +42,7 @@ a:focus {
 
 .button-primary:hover,
 .button-primary:focus {
-  background: #27C895;
+  background: #0893D8;
   color: #ffffff;
 }
 
@@ -82,8 +82,8 @@ main.home .button.login {
 main.home .button.login:hover,
 main.home .button.login:focus {
   background: none;
-  border: 2px solid #31D8A0;
-  color: #31D8A0;
+  border: 2px solid #0893D8;
+  color: #0893D8;
 }
 
 /* ======================================= */
@@ -96,14 +96,6 @@ main.signup {
   padding-bottom: 100px;
 }
 
-main.login h3.title,
-main.signup h3.title {
-  color: #969696;
-  font-weight: 100;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-}
-
 main.login fieldset,
 main.signup fieldset {
   padding: 10px 0;
@@ -112,7 +104,7 @@ main.signup fieldset {
 main.login fieldset input,
 main.signup fieldset input{
   width: 100%;
-  /* padding: 1.4em 0.7em; */
+  padding: 1.4em 0.7em;
 }
 
 main.login .button-primary,
@@ -129,7 +121,7 @@ main.signup .button-primary {
 /* ======================================= */
 
 #app {
-  height: 100%;
+  height: 100vh;
 }
 
 /* Header */
@@ -162,7 +154,7 @@ aside.sidebar {
 }
 
 aside.sidebar .online-count {
-  color: #31D8A0;
+  color: #0893D8;
   margin-right: 5px;
 }
 
@@ -185,7 +177,7 @@ aside.sidebar li > a {
 
 aside.sidebar li > a:hover > span,
 aside.sidebar li > a:focus > span, {
-  color: #31D8A0;
+  color: #0893D8;
 }
 
 aside.sidebar img.avatar {
@@ -248,8 +240,4 @@ main.chat .message p.message-header span.sent-date {
 
 #app form button {
   margin-left: 10px;
-}
-
-[v-cloak] {
-  display: none;
 }

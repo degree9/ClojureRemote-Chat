@@ -1,9 +1,0 @@
-{
-  "host": "chat.feathersjs.com",
-  "port": "PORT",
-  "nedb": "../data/",
-  "public": "../public/",
-  "auth": {
-    "secret": "FEATHERS_AUTH_SECRET"
-  }
-}

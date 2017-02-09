@@ -12,4 +12,5 @@
 (defn route? [route]
   (bidi/route? routes route))
 
-(cell= (prn current))
+(defn route! [route]
+  (bidi/route! routes route))

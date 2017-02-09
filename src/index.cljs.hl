@@ -3,7 +3,8 @@
             [app.client  :as client]
             [app.chat    :as chat]
             [app.views   :as view]
-            [app.routing :as routing])
+            [app.routing :as routing]
+            [app.actions :as actions])
   (:require-macros [hoplon.bidi :refer [route-tpl]]))
 
 (html
@@ -16,10 +17,18 @@
     (link :rel "stylesheet" :href "chat.css"))
   (body
     (route-tpl routing/routes
-      :chat    (chat/view)
+      :chat    (chat/chat)
       :landing (view/landing)
       :login   (view/login)
       :signup  (view/signup)
       :missing "404!")))
 
-(client/auth!)
+(-> (client/auth!)
+  (.then (actions/listen-messages chat/messages))
+  (.then (actions/listen-users chat/users))
+  (.then
+    (fn []
+      (.then (actions/get-message)
+        #(reset! chat/messages (js->clj % :keywordize-keys true)))
+      (.then (actions/get-user)
+        #(reset! chat/users (js->clj % :keywordize-keys true))))))

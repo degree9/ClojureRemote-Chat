@@ -1,11 +1,10 @@
 (ns app.server
   (:require [feathers.app :as feathers]
-            [app.messages :as messages]
-            [app.users :as users]))
+            [app.services :as services]))
 
 (enable-console-print!)
 
-(def app (feathers/feathers!))
+(def app (feathers/feathers))
 
 (def public (str js/__dirname "/../../"))
 
@@ -21,8 +20,8 @@
     feathers/rest
     feathers/socketio
     feathers/authentication
-    users/users
-    messages/messages)
+    services/users
+    services/messages)
 
 (defn- main []
   (feathers/listen app "8080"))
