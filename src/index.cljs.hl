@@ -1,6 +1,6 @@
 (page "index.html"
   (:require [hoplon.bidi]
-            [app.client  :as client]
+            [meta.client :as client]
             [app.chat    :as chat]
             [app.views   :as view]
             [app.routing :as routing]
