@@ -29,6 +29,8 @@
 
 (defc email nil)
 
+(cell= (prn password email))
+
 (defelem user-form [attr kids]
   (view :header (h3 :class [:title] (:header attr))
     (div :class [:col-12 :col-6-tablet :push-3-tablet :col-4-desktop :push-4-desktop]
