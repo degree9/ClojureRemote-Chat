@@ -8,7 +8,8 @@
                    [degree9/boot-semver       "1.3.6" :scope "test"]
                    [degree9/boot-nodejs       "0.0.0" :scope "test"]
                    [hoplon/hoplon             "6.0.0-alpha17"]
-                   [hoplon/brew               "0.2.0"]]
+                   [hoplon/brew               "0.2.0"]
+                   [degree9/meta "0.1.0-SNAPSHOT"]]
   :asset-paths #{"assets"}
   :source-paths #{"src"}
   :resource-paths #{"resources"})
